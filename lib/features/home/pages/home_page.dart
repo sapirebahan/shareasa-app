@@ -1,9 +1,42 @@
 
-import 'package:flutter/material.dart';
-import '../../../core/theme/app_theme.dart';
 
-class HomePage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../core/theme/app_theme.dart';
+import '../../auth/pages/login_page.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // Mengambil data UMKM dari Supabase
+  Future<List<Map<String, dynamic>>> _getUmkm() async {
+    final response = await Supabase.instance.client
+        .from('umkm')
+        .select()
+        .order('created_at', ascending: false);
+
+    return List<Map<String, dynamic>>.from(response);
+  }
+
+  // Mengambil produk untuk mengetahui harga termurah setiap UMKM
+  Future<double?> _getHargaTermurah(dynamic umkmId) async {
+    final response = await Supabase.instance.client
+        .from('products')
+        .select('harga')
+        .eq('umkm_id', umkmId)
+        .order('harga', ascending: true)
+        .limit(1);
+
+    if (response.isEmpty) return null;
+
+    return (response.first['harga'] as num).toDouble();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,41 +52,150 @@ class HomePage extends StatelessWidget {
                 // HEADER
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'Halo, Sahabat Shareasa! 👋',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.brown,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        const Text(
-                          'Berbagi Kebaikan,\nMulai dari Makanan.',
-                          style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.darkBrown,
-                          ),
-                        ),
-                      ],
+                    Image.asset(
+                      'assets/images/logo_shareasa.png',
+                      height: 44,
+                      fit: BoxFit.contain,
                     ),
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: Colors.orange.shade100,
-                      child: const Icon(
-                        Icons.person,
-                        color: AppTheme.primary,
-                        size: 30,
+                    PopupMenuButton<String>(
+                      tooltip: 'Menu Akun',
+                      offset: const Offset(0, 55),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      onSelected: (value) async {
+                        if (value == 'logout') {
+                          final confirm = await showDialog<bool>(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              title: const Row(
+                                children: [
+                                  Icon(Icons.logout_rounded, color: AppTheme.primary),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'Keluar Akun',
+                                    style: TextStyle(
+                                      color: AppTheme.darkBrown,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              content: const Text(
+                                'Apakah Anda yakin ingin logout dari aplikasi Shareasa?',
+                                style: TextStyle(color: Colors.black87),
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(ctx, false),
+                                  child: const Text('Batal', style: TextStyle(color: Colors.grey)),
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppTheme.primary,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  onPressed: () => Navigator.pop(ctx, true),
+                                  child: const Text('Keluar', style: TextStyle(color: Colors.white)),
+                                ),
+                              ],
+                            ),
+                          );
+
+                          if (confirm == true && context.mounted) {
+                            await Supabase.instance.client.auth.signOut();
+                            if (context.mounted) {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(builder: (_) => const LoginPage()),
+                                (route) => false,
+                              );
+                            }
+                          }
+                        }
+                      },
+                      itemBuilder: (context) {
+                        final userEmail = Supabase.instance.client.auth.currentUser?.email ?? 'Sahabat Shareasa';
+                        return [
+                          PopupMenuItem(
+                            enabled: false,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Masuk sebagai:',
+                                  style: TextStyle(fontSize: 11, color: Colors.grey),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  userEmail,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppTheme.darkBrown,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const Divider(height: 16),
+                              ],
+                            ),
+                          ),
+                          const PopupMenuItem(
+                            value: 'logout',
+                            child: Row(
+                              children: [
+                                Icon(Icons.logout_rounded, color: Colors.redAccent, size: 20),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Keluar (Logout)',
+                                  style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ];
+                      },
+                      child: CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.orange.shade100,
+                        child: const Icon(
+                          Icons.person,
+                          color: AppTheme.primary,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ],
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 18),
+
+                // Salam & Slogan
+                const Text(
+                  'Halo, Sahabat Shareasa! 👋',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.brown,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'Berbagi Kebaikan,\nMulai dari Makanan.',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.darkBrown,
+                  ),
+                ),
+
+                const SizedBox(height: 22),
 
                 // BANNER
                 Container(
@@ -76,7 +218,7 @@ class HomePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       const Text(
-                        'Pesan makanan dari UMKM dan kirimkan '
+                        'Pesan produk dari UMKM dan kirimkan '
                         'kebaikan kepada mereka yang membutuhkan.',
                         style: TextStyle(
                           color: Colors.white,
@@ -127,7 +269,7 @@ class HomePage extends StatelessWidget {
                   children: [
                     _buildStatCard(
                       icon: Icons.restaurant,
-                      title: 'Makanan Dibagikan',
+                      title: 'Produk Dibagikan',
                       value: '0',
                       color: Colors.orange.shade100,
                     ),
@@ -143,7 +285,7 @@ class HomePage extends StatelessWidget {
 
                 const SizedBox(height: 25),
 
-                // UMKM
+                // UMKM PILIHAN
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -164,29 +306,62 @@ class HomePage extends StatelessWidget {
 
                 const SizedBox(height: 10),
 
-                _buildUmkmCard(
-                  name: 'Warung Berkah',
-                  category: 'Makanan Rumahan',
-                  price: 'Mulai Rp15.000',
-                  icon: Icons.rice_bowl,
-                ),
+                FutureBuilder<List<Map<String, dynamic>>>(
+                  future: _getUmkm(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(25),
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
 
-                const SizedBox(height: 12),
+                    if (snapshot.hasError) {
+                      return _buildMessage(
+                        'Gagal mengambil data UMKM.\n${snapshot.error}',
+                      );
+                    }
 
-                _buildUmkmCard(
-                  name: 'Dapur Nusantara',
-                  category: 'Nasi dan Lauk',
-                  price: 'Mulai Rp18.000',
-                  icon: Icons.lunch_dining,
-                ),
+                    final umkmList = snapshot.data ?? [];
 
-                const SizedBox(height: 12),
+                    if (umkmList.isEmpty) {
+                      return _buildMessage(
+                        'Belum ada UMKM tersedia.\n'
+                        'Tambahkan data melalui Supabase.',
+                      );
+                    }
 
-                _buildUmkmCard(
-                  name: 'Roti Bahagia',
-                  category: 'Roti dan Kue',
-                  price: 'Mulai Rp10.000',
-                  icon: Icons.bakery_dining,
+                    return Column(
+                      children: umkmList.map((umkm) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: FutureBuilder<double?>(
+                            future: _getHargaTermurah(umkm['id']),
+                            builder: (context, hargaSnapshot) {
+                              final harga = hargaSnapshot.data;
+
+                              return _buildUmkmCard(
+                                name: umkm['nama_umkm'] ??
+                                    'UMKM Tanpa Nama',
+                                category: umkm['kategori'] ??
+                                    'Kategori belum tersedia',
+                                price: hargaSnapshot.connectionState ==
+                                        ConnectionState.waiting
+                                    ? 'Memuat harga...'
+                                    : harga != null
+                                        ? 'Mulai ${_formatRupiah(harga)}'
+                                        : 'Produk belum tersedia',
+                                icon: Icons.storefront,
+                              );
+                            },
+                          ),
+                        );
+                      }).toList(),
+                    );
+                  },
                 ),
               ],
             ),
@@ -219,6 +394,31 @@ class HomePage extends StatelessWidget {
             label: 'Profil',
           ),
         ],
+      ),
+    );
+  }
+
+  // FORMAT RUPIAH
+  String _formatRupiah(double harga) {
+    return 'Rp${harga.toStringAsFixed(0)}';
+  }
+
+  // PESAN STATUS
+  Widget _buildMessage(String message) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Text(
+        message,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Colors.grey,
+          fontSize: 13,
+        ),
       ),
     );
   }
