@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/theme/app_theme.dart';
-import '../../home/pages/home_page.dart';
 import '../../welcome/pages/welcome_page.dart';
 
 class RegisterPage extends StatefulWidget {

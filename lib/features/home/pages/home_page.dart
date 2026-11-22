@@ -5,6 +5,10 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/theme/app_theme.dart';
 import '../../auth/pages/login_page.dart';
+import '../../umkm/pages/umkm_detail_page.dart';
+import '../../orders/pages/orders_page.dart';
+import '../../orders/pages/history_page.dart';
+import '../../profile/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+
   // Mengambil data UMKM dari Supabase
   Future<List<Map<String, dynamic>>> _getUmkm() async {
     final response = await Supabase.instance.client
@@ -42,13 +48,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.background,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: [
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                 // HEADER
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -344,6 +353,20 @@ class _HomePageState extends State<HomePage> {
                               final harga = hargaSnapshot.data;
 
                               return _buildUmkmCard(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => UmkmDetailPage(
+                                        umkmId: umkm['id'].toString(),
+                                        umkmName:
+                                            (umkm['nama_umkm'] ??
+                                                    'UMKM Tanpa Nama')
+                                                .toString(),
+                                      ),
+                                    ),
+                                  );
+                                },
                                 name: umkm['nama_umkm'] ??
                                     'UMKM Tanpa Nama',
                                 category: umkm['kategori'] ??
@@ -363,16 +386,26 @@ class _HomePageState extends State<HomePage> {
                     );
                   },
                 ),
-              ],
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
+          const OrdersPage(),
+          const HistoryPage(),
+          const ProfilePage(),
+        ],
       ),
 
       // NAVIGASI BAWAH
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: 0,
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
         selectedItemColor: AppTheme.primary,
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.white,
@@ -473,67 +506,72 @@ class _HomePageState extends State<HomePage> {
     required String category,
     required String price,
     required IconData icon,
+    required VoidCallback onTap,
   }) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 65,
-            height: 65,
-            decoration: BoxDecoration(
-              color: Colors.orange.shade50,
-              borderRadius: BorderRadius.circular(12),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 65,
+              height: 65,
+              decoration: BoxDecoration(
+                color: Colors.orange.shade50,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                icon,
+                size: 35,
+                color: AppTheme.primary,
+              ),
             ),
-            child: Icon(
-              icon,
-              size: 35,
-              color: AppTheme.primary,
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.darkBrown,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    category,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    price,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.green,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.darkBrown,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  category,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  price,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.green,
-                  ),
-                ),
-              ],
+            const Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+              color: Colors.grey,
             ),
-          ),
-          const Icon(
-            Icons.arrow_forward_ios,
-            size: 16,
-            color: Colors.grey,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
