@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 13,
-                        color: AppTheme.darkBrown.withOpacity(0.7),
+                        color: AppTheme.darkBrown.withValues(alpha: 0.7),
                       ),
                     ),
                     const SizedBox(height: 14),
@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
+                            color: Colors.black.withValues(alpha: 0.04),
                             blurRadius: 15,
                             offset: const Offset(0, 6),
                           ),
@@ -342,7 +342,7 @@ class _LoginPageState extends State<LoginPage> {
                               Text(
                                 'Belum punya akun? ',
                                 style: TextStyle(
-                                  color: AppTheme.darkBrown.withOpacity(0.8),
+                                  color: AppTheme.darkBrown.withValues(alpha: 0.8),
                                   fontSize: 13,
                                 ),
                               ),

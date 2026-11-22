@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../core/theme/app_theme.dart';
-import '../../home/pages/home_page.dart';
 import '../../welcome/pages/welcome_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -214,7 +213,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 13,
-                        color: AppTheme.darkBrown.withOpacity(0.7),
+                        color: AppTheme.darkBrown.withValues(alpha: 0.7),
                       ),
                     ),
                     const SizedBox(height: 18),
@@ -227,7 +226,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.04),
+                            color: Colors.black.withValues(alpha: 0.04),
                             blurRadius: 15,
                             offset: const Offset(0, 6),
                           ),
@@ -408,7 +407,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               Text(
                                 'Sudah punya akun?',
                                 style: TextStyle(
-                                  color: AppTheme.darkBrown.withOpacity(0.8),
+                                  color: AppTheme.darkBrown.withValues(alpha: 0.8),
                                   fontSize: 13,
                                 ),
                               ),

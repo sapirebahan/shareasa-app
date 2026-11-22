@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../auth/pages/login_page.dart';
 import '../../umkm/pages/katalog_page.dart';
-import '../widgets/bottom_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
   final int initialIndex;
@@ -527,9 +526,9 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
-                        color: AppTheme.green.withOpacity(0.12),
+                        color: AppTheme.green.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: AppTheme.green.withOpacity(0.3)),
+                        border: Border.all(color: AppTheme.green.withValues(alpha: 0.3)),
                       ),
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
@@ -565,7 +564,7 @@ class _HomePageState extends State<HomePage> {
                   'Pantau jejak kebaikan dan makanan berkah yang telah kamu salurkan.',
                   style: TextStyle(
                     fontSize: 13,
-                    color: AppTheme.darkBrown.withOpacity(0.75),
+                    color: AppTheme.darkBrown.withValues(alpha: 0.75),
                   ),
                 ),
 
@@ -580,7 +579,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
+                        color: Colors.black.withValues(alpha: 0.04),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -615,7 +614,7 @@ class _HomePageState extends State<HomePage> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 13,
-                          color: AppTheme.darkBrown.withOpacity(0.7),
+                          color: AppTheme.darkBrown.withValues(alpha: 0.7),
                           height: 1.45,
                         ),
                       ),
@@ -676,7 +675,7 @@ class _HomePageState extends State<HomePage> {
                               'Satu porsi makanan yang kamu beli dari UMKM mitra secara otomatis diantarkan kepada mereka yang membutuhkan di sekitarmu.',
                               style: TextStyle(
                                 fontSize: 12,
-                                color: AppTheme.darkBrown.withOpacity(0.75),
+                                color: AppTheme.darkBrown.withValues(alpha: 0.75),
                                 height: 1.4,
                               ),
                             ),
@@ -722,9 +721,9 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
-                        color: AppTheme.primary.withOpacity(0.12),
+                        color: AppTheme.primary.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: AppTheme.primary.withOpacity(0.3)),
+                        border: Border.all(color: AppTheme.primary.withValues(alpha: 0.3)),
                       ),
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
@@ -756,7 +755,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
+                        color: Colors.black.withValues(alpha: 0.04),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),
@@ -791,7 +790,7 @@ class _HomePageState extends State<HomePage> {
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                               decoration: BoxDecoration(
-                                color: AppTheme.green.withOpacity(0.12),
+                                color: AppTheme.green.withValues(alpha: 0.12),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Row(
@@ -829,7 +828,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
+                        color: Colors.black.withValues(alpha: 0.04),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
