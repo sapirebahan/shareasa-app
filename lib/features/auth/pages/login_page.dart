@@ -335,11 +335,12 @@ class _LoginPageState extends State<LoginPage> {
                           const SizedBox(height: 16),
 
                           // Opsi Navigasi ke Register di bawah tombol Masuk
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
                               Text(
-                                'Belum punya akun?',
+                                'Belum punya akun? ',
                                 style: TextStyle(
                                   color: AppTheme.darkBrown.withOpacity(0.8),
                                   fontSize: 13,
@@ -353,7 +354,7 @@ class _LoginPageState extends State<LoginPage> {
                                   );
                                 },
                                 style: TextButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                                   minimumSize: Size.zero,
                                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 ),
