@@ -60,7 +60,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: AppTheme.green.withOpacity(0.12),
+                color: AppTheme.green.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -84,7 +84,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,
-                color: AppTheme.darkBrown.withOpacity(0.75),
+                color: AppTheme.darkBrown.withValues(alpha: 0.75),
                 height: 1.4,
               ),
             ),
@@ -105,7 +105,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                       'Sistem pembayaran dan penyaluran otomatis akan segera aktif pada pembaruan berikutnya.',
                       style: TextStyle(
                         fontSize: 12,
-                        color: AppTheme.darkBrown.withOpacity(0.8),
+                        color: AppTheme.darkBrown.withValues(alpha: 0.8),
                       ),
                     ),
                   ),
@@ -183,7 +183,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
             leading: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
-                backgroundColor: Colors.white.withOpacity(0.9),
+                backgroundColor: Colors.white.withValues(alpha: 0.9),
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18, color: AppTheme.darkBrown),
                   onPressed: () => Navigator.pop(context),
@@ -194,7 +194,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
               Padding(
                 padding: const EdgeInsets.only(right: 12),
                 child: CircleAvatar(
-                  backgroundColor: Colors.white.withOpacity(0.9),
+                  backgroundColor: Colors.white.withValues(alpha: 0.9),
                   child: IconButton(
                     icon: const Icon(Icons.share_outlined, size: 20, color: AppTheme.darkBrown),
                     onPressed: () {
@@ -248,7 +248,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
                           colors: [
-                            Colors.black.withOpacity(0.6),
+                            Colors.black.withValues(alpha: 0.6),
                             Colors.transparent,
                           ],
                         ),
@@ -373,7 +373,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                             '${food.jumlahDonasi}+ tersalurkan',
                             style: TextStyle(
                               fontSize: 13,
-                              color: AppTheme.darkBrown.withOpacity(0.75),
+                              color: AppTheme.darkBrown.withValues(alpha: 0.75),
                             ),
                           ),
                         ],
@@ -405,7 +405,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.04),
+                          color: Colors.black.withValues(alpha: 0.04),
                           blurRadius: 10,
                           offset: const Offset(0, 4),
                         ),
@@ -463,7 +463,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                           decoration: BoxDecoration(
-                            color: AppTheme.green.withOpacity(0.12),
+                            color: AppTheme.green.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Text(
@@ -495,7 +495,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                     food.deskripsi,
                     style: TextStyle(
                       fontSize: 14,
-                      color: AppTheme.darkBrown.withOpacity(0.8),
+                      color: AppTheme.darkBrown.withValues(alpha: 0.8),
                       height: 1.55,
                     ),
                   ),
@@ -506,7 +506,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.orange.shade50.withOpacity(0.6),
+                      color: Colors.orange.shade50.withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(color: Colors.orange.shade100),
                     ),
@@ -553,7 +553,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withValues(alpha: 0.06),
               blurRadius: 15,
               offset: const Offset(0, -4),
             ),
@@ -641,7 +641,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
             text,
             style: TextStyle(
               fontSize: 12,
-              color: AppTheme.darkBrown.withOpacity(0.85),
+              color: AppTheme.darkBrown.withValues(alpha: 0.85),
             ),
           ),
         ),

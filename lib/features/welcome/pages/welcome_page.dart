@@ -58,7 +58,7 @@ class WelcomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: AppTheme.darkBrown.withOpacity(0.12),
+                          color: AppTheme.darkBrown.withValues(alpha: 0.12),
                           blurRadius: 20,
                           offset: const Offset(0, 8),
                         ),
@@ -103,7 +103,7 @@ class WelcomePage extends StatelessWidget {
                                   begin: Alignment.bottomCenter,
                                   end: Alignment.topCenter,
                                   colors: [
-                                    Colors.black.withOpacity(0.45),
+                                    Colors.black.withValues(alpha: 0.45),
                                     Colors.transparent,
                                   ],
                                 ),
@@ -117,7 +117,7 @@ class WelcomePage extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.92),
+                                color: Colors.white.withValues(alpha: 0.92),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: const Row(
@@ -198,7 +198,7 @@ class WelcomePage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       height: 1.5,
-                      color: AppTheme.darkBrown.withOpacity(0.75),
+                      color: AppTheme.darkBrown.withValues(alpha: 0.75),
                     ),
                   ),
 
@@ -214,7 +214,7 @@ class WelcomePage extends StatelessWidget {
                         backgroundColor: AppTheme.primary,
                         foregroundColor: Colors.white,
                         elevation: 2,
-                        shadowColor: AppTheme.primary.withOpacity(0.4),
+                        shadowColor: AppTheme.primary.withValues(alpha: 0.4),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -245,7 +245,7 @@ class WelcomePage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 12,
-                      color: AppTheme.darkBrown.withOpacity(0.55),
+                      color: AppTheme.darkBrown.withValues(alpha: 0.55),
                     ),
                   ),
                 ],
@@ -268,7 +268,7 @@ class WelcomePage extends StatelessWidget {
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: color.withOpacity(0.2), width: 1),
+        border: Border.all(color: color.withValues(alpha: 0.2), width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

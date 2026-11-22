@@ -36,7 +36,7 @@ void main() {
     expect(bottomNavFinder, findsOneWidget);
 
     final rect = tester.getRect(bottomNavFinder);
-    print('Mobile BottomNav rect: $rect');
+    debugPrint('Mobile BottomNav rect: $rect');
     expect(rect.bottom, equals(844.0));
     expect(rect.top, equals(844.0 - 56.0));
 
@@ -50,31 +50,31 @@ void main() {
     await tester.tap(find.text('Katalog').last);
     await tester.pump();
     expect(find.byType(BottomNavigationBar), findsOneWidget);
-    print('Navigated to Katalog tab successfully, bottomNav still visible!');
+    debugPrint('Navigated to Katalog tab successfully, bottomNav still visible!');
 
     // 3. Test tapping Riwayat tab (index 2)
     await tester.tap(find.text('Riwayat').last);
     await tester.pump();
     expect(find.byType(BottomNavigationBar), findsOneWidget);
-    print('Navigated to Riwayat tab successfully, bottomNav still visible!');
+    debugPrint('Navigated to Riwayat tab successfully, bottomNav still visible!');
 
     // 4. Test tapping Profil tab (index 3)
     await tester.tap(find.text('Profil').last);
     await tester.pump();
     expect(find.byType(BottomNavigationBar), findsOneWidget);
-    print('Navigated to Profil tab successfully, bottomNav still visible!');
+    debugPrint('Navigated to Profil tab successfully, bottomNav still visible!');
 
     // 5. Test tapping Beranda tab (index 0)
     await tester.tap(find.text('Beranda').last);
     await tester.pump();
     expect(find.byType(BottomNavigationBar), findsOneWidget);
-    print('Navigated back to Beranda tab successfully, bottomNav still visible!');
+    debugPrint('Navigated back to Beranda tab successfully, bottomNav still visible!');
 
     // 6. Test on desktop screen size (1200 x 800)
     tester.view.physicalSize = const Size(1200, 800);
     await tester.pump();
     final desktopRect = tester.getRect(bottomNavFinder);
-    print('Desktop BottomNav rect: $desktopRect');
+    debugPrint('Desktop BottomNav rect: $desktopRect');
     expect(desktopRect.bottom, equals(800.0));
     expect(desktopRect.top, equals(800.0 - 56.0));
   });

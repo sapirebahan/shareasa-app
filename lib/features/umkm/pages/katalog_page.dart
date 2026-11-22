@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../home/pages/home_page.dart';
-import '../../home/widgets/bottom_nav_bar.dart';
 import '../models/food_item.dart';
 import 'food_detail_page.dart';
 
@@ -131,10 +130,10 @@ class _KatalogPageState extends State<KatalogPage> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                               decoration: BoxDecoration(
-                                color: AppTheme.green.withOpacity(0.12),
+                                color: AppTheme.green.withValues(alpha: 0.12),
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(
-                                    color: AppTheme.green.withOpacity(0.3)),
+                                    color: AppTheme.green.withValues(alpha: 0.3)),
                               ),
                               child: const Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -173,7 +172,7 @@ class _KatalogPageState extends State<KatalogPage> {
                           'Pilih aneka sajian lezat dari UMKM lokal untuk berbagi berkah bersama.',
                           style: TextStyle(
                             fontSize: 13,
-                            color: AppTheme.darkBrown.withOpacity(0.75),
+                            color: AppTheme.darkBrown.withValues(alpha: 0.75),
                             height: 1.4,
                           ),
                         ),
@@ -187,7 +186,7 @@ class _KatalogPageState extends State<KatalogPage> {
                             borderRadius: BorderRadius.circular(16),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.04),
+                                color: Colors.black.withValues(alpha: 0.04),
                                 blurRadius: 12,
                                 offset: const Offset(0, 4),
                               ),
@@ -270,7 +269,7 @@ class _KatalogPageState extends State<KatalogPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       scrollDirection: Axis.horizontal,
                       itemCount: FoodItem.kategoriList.length,
-                      separatorBuilder: (_, __) => const SizedBox(width: 8),
+                      separatorBuilder: (_, _) => const SizedBox(width: 8),
                       itemBuilder: (context, index) {
                         final cat = FoodItem.kategoriList[index];
                         final isSelected = _selectedCategory == cat;
@@ -377,7 +376,7 @@ class _KatalogPageState extends State<KatalogPage> {
                               child: Icon(
                                 Icons.search_off_rounded,
                                 size: 50,
-                                color: AppTheme.primary.withOpacity(0.7),
+                                color: AppTheme.primary.withValues(alpha: 0.7),
                               ),
                             ),
                             const SizedBox(height: 16),
@@ -395,7 +394,7 @@ class _KatalogPageState extends State<KatalogPage> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 13,
-                                color: AppTheme.darkBrown.withOpacity(0.65),
+                                color: AppTheme.darkBrown.withValues(alpha: 0.65),
                               ),
                             ),
                             const SizedBox(height: 18),
@@ -549,7 +548,7 @@ class _KatalogPageState extends State<KatalogPage> {
           borderRadius: BorderRadius.circular(18),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -601,7 +600,7 @@ class _KatalogPageState extends State<KatalogPage> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.65),
+                        color: Colors.black.withValues(alpha: 0.65),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
